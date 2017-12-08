@@ -17,7 +17,7 @@
 #  githubのusernameを書く
 #   Remind @channel "テストメッセージです。"
 
-  CronJob = require('cron').CronJob
+CronJob = require('cron').CronJob
 
 module.exports = (robot) ->
 	# 投稿時間
@@ -37,9 +37,9 @@ module.exports = (robot) ->
 
   messageFunc = () ->
 	# 天気・アイコン・現在の気温・最高気温・最低気温
-	cityName  = Ehime
-	query = encodeURIComponent #{cityName}
-	apikey = 2a951664f3f7dd42c53629bfdaf79f76
+	cityName  = "Ehime"
+	query = "encodeURIComponent #{cityName}"
+	apikey = "2a951664f3f7dd42c53629bfdaf79f76"
 
 	request = msg.http("http://api.openweathermap.org/data/2.5/forecast/weather?q=#{query}&APPID=#{apikey}").get()
 	request (err, res, body) ->
@@ -62,12 +62,12 @@ module.exports = (robot) ->
 
 		# メッセージをランダムで選択する
 		message = messages[Math.floor(Math.random() * messages.length)]
-		message = "#{ message } #{weatherName}です。 \n 気温:#{temp}℃ 最高気温：#{temp_max}℃ 最低気温：#{temp_min}℃ \n http://openweathermap.org/img/w/#{icon}.png"
+		message = "message + #{weatherName}です。 \n 気温:#{temp}℃ 最高気温：#{temp_max}℃ 最低気温：#{temp_min}℃ \n http://openweathermap.org/img/w/#{icon}.png"
 
 		robot.send {room: "#" + room}, message
 
-  # デバッグ用 myremindすれば動く
-  robot.respond /weather$/, messageFunc 
+  # デバッグ用 weatherすれば動く
+  robot.respond /weather$/, messageFunc
 
   # 送信
   new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

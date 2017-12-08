@@ -22,6 +22,7 @@ CronJob = require('cron').CronJob
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 55 17 * * 1-5"
+  
   # 投稿対象部屋
   #room = "general"
   room = "channelcreationnews"
@@ -43,7 +44,7 @@ module.exports = (robot) ->
   	# メッセージをランダムで選択する
   	message = messages[Math.floor(Math.random() * messages.length)]
 
-  	message = "@channel { message }"
+  	message = "@channel #{ message }"
   	
   	robot.send {room: "#" + room}, message
 

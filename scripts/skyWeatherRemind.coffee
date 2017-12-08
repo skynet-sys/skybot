@@ -41,7 +41,7 @@ module.exports = (robot) ->
   messageFunc = () ->
 	url = "http://api.openweathermap.org/data/2.5/weather?"
         auth = {
-            appid: '1111111' # API_KEY
+            appid: '2a951664f3f7dd42c53629bfdaf79f76' # API_KEY
             q:     'Tokyo,jp'                         # 都市
             units: 'metric'                           # 摂氏
         }

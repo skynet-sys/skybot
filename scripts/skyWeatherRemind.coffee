@@ -35,9 +35,6 @@ module.exports = (robot) ->
     'はいはーい。お天気Botの本領発揮です。\n本日の愛媛県の天気は'
   ]
   
-  request = require 'request'
-  qs = require 'querystring'
-  
   messageFunc = () ->
 	url = "http://api.openweathermap.org/data/2.5/weather?"
         auth = {
@@ -51,17 +48,16 @@ module.exports = (robot) ->
   	message = "#{ message }"
 	
 	# 天気・アイコン・現在の気温・最高気温・最低気温
-	params = qs.stringify(auth)
-        request
-            url: url + params
-            , (err, response, body) ->
-                json = JSON.parse body
-                icon = json['weather'][0]['icon']
-                temp = json['main']['temp']
-                temp_max = json['main']['temp_max']
-                temp_min = json['main']['temp_min']
+		request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&appid=[APIKEY]&units=metric").get()
+		stMessage = request (err, res, body) ->
+		json = JSON.parse body
+		weatherName = json['weather'][0]['main']
+		icon = json['weather'][0]['icon']
+		temp = json['main']['temp']
+		temp_max = json['main']['temp_max']
+		temp_min = json['main']['temp_min']
                 
-		switch json["list"][0]["weather"][0]["main"]
+		switch weatherName
 			when "Clear"
 			   weatherName = "晴れ"
 			when "Clouds"

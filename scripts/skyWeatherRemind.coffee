@@ -71,7 +71,7 @@ module.exports = (robot) ->
 			when "snow"
 			   weatherName = "雪"
 			   
-                msg.send "#{ message }「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
+                msg.send "#{ message }"「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
 
   	robot.send {room: "#" + room}, message
 

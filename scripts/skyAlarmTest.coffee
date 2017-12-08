@@ -43,7 +43,7 @@ module.exports = (robot) ->
   	# メッセージをランダムで選択する
   	message = messages[Math.floor(Math.random() * messages.length)]
 
-  	message = "@channel #{ message }"
+  	message = "@channel { message }"
   	
   	robot.send {room: "#" + room}, message
 

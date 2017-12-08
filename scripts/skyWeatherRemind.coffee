@@ -36,12 +36,9 @@ module.exports = (robot) ->
 	]
 
   messageFunc = () ->
-	# 天気・アイコン・現在の気温・最高気温・最低気温
-	cityName  = "Ehime"
-	query = "encodeURIComponent #{cityName}"
-	apikey = "2a951664f3f7dd42c53629bfdaf79f76"
+	query = "encodeURIComponent Ehime"
 
-	request = msg.http("http://api.openweathermap.org/data/2.5/forecast/weather?q=#{query}&APPID=#{apikey}").get()
+	request = msg.http("http://api.openweathermap.org/data/2.5/forecast/weather?q=#{query}&APPID=2a951664f3f7dd42c53629bfdaf79f76").get()
 	request (err, res, body) ->
 		json = JSON.parse body
 		weather = json["list"][0]["weather"][0]["main"]
@@ -64,7 +61,7 @@ module.exports = (robot) ->
 		message = messages[Math.floor(Math.random() * messages.length)]
 		message = "message + #{weatherName}です。 \n 気温:#{temp}℃ 最高気温：#{temp_max}℃ 最低気温：#{temp_min}℃ \n http://openweathermap.org/img/w/#{icon}.png"
 
-		robot.send {room: "#" + room}, message
+		robot.send {room: "#" + room}, #{message}
 
   # デバッグ用 weatherすれば動く
   robot.respond /weather$/, messageFunc

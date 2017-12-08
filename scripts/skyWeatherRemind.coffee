@@ -35,10 +35,8 @@ module.exports = (robot) ->
     'はいはーい。お天気Botの本領発揮です。\n本日の愛媛県の天気は'
   ]
   
-  messageFunc = () ->
-	# 天気・アイコン・現在の気温・最高気温・最低気温
-	request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Ehime,jp&appid=2a951664f3f7dd42c53629bfdaf79f76&units=metric").get()
-
+    messageFunc = () ->
+        # 天気・アイコン・現在の気温・最高気温・最低気温
         cityName  = Ehime
         query = encodeURIComponent #{cityName}
         apikey = 2a951664f3f7dd42c53629bfdaf79f76

@@ -17,7 +17,7 @@
 #  githubのusernameを書く
 #   Remind @channel "テストメッセージです。"
 
-cron = require('cron').CronJob
+CronJob = require('cron').CronJob
 
 module.exports = (robot) ->
   # 投稿時間

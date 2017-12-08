@@ -76,7 +76,7 @@ module.exports = (robot) ->
   	robot.send {room: "#" + room}, message
 
   # デバッグ用 myremindすれば動く
-  robot.respond /weather$/, messageFunc
+  robot.respond /weather$/, messageFunc 
 
   # 送信
   new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

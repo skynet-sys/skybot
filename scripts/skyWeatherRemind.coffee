@@ -36,19 +36,12 @@ module.exports = (robot) ->
   ]
   
   messageFunc = () ->
-	url = "http://api.openweathermap.org/data/2.5/weather?"
-        auth = {
-            appid: '2a951664f3f7dd42c53629bfdaf79f76' # API_KEY
-            q:     'Ehime,jp'                         # 都市
-            units: 'metric'                           # 摂氏
-        }
-        
   	# メッセージをランダムで選択する
   	message = messages[Math.floor(Math.random() * messages.length)]
   	message = "#{ message }"
 	
 	# 天気・アイコン・現在の気温・最高気温・最低気温
-		request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp&appid=[APIKEY]&units=metric").get()
+		request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Ehime,jp&appid=2a951664f3f7dd42c53629bfdaf79f76&units=metric").get()
 		stMessage = request (err, res, body) ->
 		json = JSON.parse body
 		weatherName = json['weather'][0]['main']

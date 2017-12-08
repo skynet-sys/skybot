@@ -35,7 +35,7 @@ module.exports = (robot) ->
 		'はいはーい。お天気Botの本領発揮です。\n本日の愛媛県の天気は'
 	]
 
-  messageFunc = () ->
+messageFunc = () ->
 	query = "encodeURIComponent Ehime"
 
 	request = msg.http("http://api.openweathermap.org/data/2.5/forecast/weather?q=#{query}&APPID=2a951664f3f7dd42c53629bfdaf79f76").get()
@@ -63,8 +63,8 @@ module.exports = (robot) ->
 
 		robot.send {room: "#" + room}, #{message}
 
-  # デバッグ用 weatherすれば動く
-  robot.respond /weather$/, messageFunc
+# デバッグ用 weatherすれば動く
+robot.respond /weather$/, messageFunc
 
-  # 送信
-  new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'
+# 送信
+new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

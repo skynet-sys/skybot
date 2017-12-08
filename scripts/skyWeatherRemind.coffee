@@ -36,13 +36,9 @@ module.exports = (robot) ->
   ]
   
   messageFunc = () ->
-  	# メッセージをランダムで選択する
-  	message = messages[Math.floor(Math.random() * messages.length)]
-  	message = "#{ message }"
-	
 	# 天気・アイコン・現在の気温・最高気温・最低気温
-		request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Ehime,jp&appid=2a951664f3f7dd42c53629bfdaf79f76&units=metric").get()
-		stMessage = request (err, res, body) ->
+	request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Ehime,jp&appid=2a951664f3f7dd42c53629bfdaf79f76&units=metric").get()
+	stMessage = request (err, res, body) ->
 		json = JSON.parse body
 		weatherName = json['weather'][0]['main']
 		icon = json['weather'][0]['icon']
@@ -52,17 +48,18 @@ module.exports = (robot) ->
                 
 		switch weatherName
 			when "Clear"
-			   weatherName = "晴れ"
+				weatherName = "晴れ"
 			when "Clouds"
-			   weatherName = "くもり"
+				weatherName = "くもり"
 			when "Rain"
-			   weatherName = "雨"
+				weatherName = "雨"
 			when "snow"
-			   weatherName = "雪"
-			   
-                msg.send "#{ message }"「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
-
-  	robot.send {room: "#" + room}, message
+				weatherName = "雪"
+		
+		# メッセージをランダムで選択する
+		message = messages[Math.floor(Math.random() * messages.length)]
+		message = "#{ message }"「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
+		robot.send {room: "#" + room}, message
 
   # デバッグ用 myremindすれば動く
   robot.respond /weather$/, messageFunc 

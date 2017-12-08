@@ -24,8 +24,8 @@ module.exports = (robot) ->
   sendTime = "0 55 17 * * 1-5"
   
   # 投稿対象部屋
-  #room = "general"
-  room = "channelcreationnews"
+  room = "general"
+  #room = "channelcreationnews"
   
   # ランダムに投稿するメッセージリスト
   messages = [

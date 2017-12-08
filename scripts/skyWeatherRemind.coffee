@@ -38,28 +38,32 @@ module.exports = (robot) ->
   messageFunc = () ->
 	# 天気・アイコン・現在の気温・最高気温・最低気温
 	request = robot.http("http://api.openweathermap.org/data/2.5/weather?q=Ehime,jp&appid=2a951664f3f7dd42c53629bfdaf79f76&units=metric").get()
-	stMessage = request (err, res, body) ->
-		json = JSON.parse body
-		weatherName = json['weather'][0]['main']
-		icon = json['weather'][0]['icon']
-		temp = json['main']['temp']
-		temp_max = json['main']['temp_max']
-		temp_min = json['main']['temp_min']
-                
-		switch weatherName
-			when "Clear"
-				weatherName = "晴れ"
-			when "Clouds"
-				weatherName = "くもり"
-			when "Rain"
-				weatherName = "雨"
-			when "snow"
-				weatherName = "雪"
+
+    cityName  = Ehime
+    query = encodeURIComponent #{cityName}
+    apikey = 2a951664f3f7dd42c53629bfdaf79f76
+
+    request = msg.http("http://api.openweathermap.org/data/2.5/forecast/weather?q=#{query}&APPID=#{apikey}").get()
+    request (err, res, body) ->
+      json = JSON.parse body
+      switch json["list"][0]["weather"][0]["main"]
+        when "Clear"
+          weather = "晴れ"
+        when "Clouds"
+          weather = "くもり"
+        when "Rain"
+          weather = "雨"
+        when "snow"
+          weather = "雪"
+
+        icon = json["list"][0]["weather"][0]["icon"]
+        temp = json['main']['temp']
+        temp_max = json['main']['temp_max']
+        temp_min = json['main']['temp_min']
 		
-		# メッセージをランダムで選択する
-		message = messages[Math.floor(Math.random() * messages.length)]
-		message = "#{ message }"「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
-		robot.send {room: "#" + room}, message
+        # メッセージをランダムで選択する
+        message = messages[Math.floor(Math.random() * messages.length)]
+        robot.send {room: "#" + room}, "#{ message } #{weather}です。\n気温:#{temp}℃ 最高気温：#{temp_max}℃ 最低気温：#{temp_min}℃\nhttp://openweathermap.org/img/w/#{icon}.png"
 
   # デバッグ用 myremindすれば動く
   robot.respond /weather$/, messageFunc 

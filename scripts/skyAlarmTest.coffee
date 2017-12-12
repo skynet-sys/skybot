@@ -17,15 +17,15 @@
 #  githubのusernameを書く
 #   Remind @channel "テストメッセージです。"
 
-CronJob = require('cron').CronJob
+cronJob = require('cron').CronJob
 
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 55 17 * * 1-5"
   
   # 投稿対象部屋
-  room = "general"
-  #room = "channelcreationnews"
+  #room = "general"
+  room = "channelcreationnews"
   
   # ランダムに投稿するメッセージリスト
   messages = [
@@ -41,14 +41,14 @@ module.exports = (robot) ->
   
   messageFunc = () ->
 
-  	# メッセージをランダムで選択する
-  	message = messages[Math.floor(Math.random() * messages.length)]
-  	message = "@channel #{ message }"
-  	
-  	robot.send {room: "#" + room}, message
+    # メッセージをランダムで選択する
+    message = messages[Math.floor(Math.random() * messages.length)]
+    message = "@channel #{ message }"
+
+    robot.send {room: "#" + room}, message
 
   # デバッグ用 myremindすれば動く
   robot.respond /myremind$/, messageFunc
 
   # 送信
-  new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'
+  new cronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

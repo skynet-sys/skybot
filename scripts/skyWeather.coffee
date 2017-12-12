@@ -18,7 +18,7 @@
 #  githubのusernameを書く
 #   Remind @channel "テストメッセージです。"
 
-CronJob = require('cron').CronJob
+cronJob = require('cron').CronJob
 
 config =
   api: process.env.HUBOT_WEATHER_API
@@ -33,20 +33,20 @@ module.exports = (robot) ->
   room = "channelcreationnews"
   
   messageFunc = () ->
-	
-	request = robot.http("http://api.openweathermap.org/data/2.5/weather?id=#{config.state}&appid=#{config.api}&units=metric").get()
-	stMessage = request (err, res, body) ->
-		json = JSON.parse body
-		weatherName = json['weather'][0]['main']
-		icon = json['weather'][0]['icon']
-		temp = json['main']['temp']
-		temp_max = json['main']['temp_max']
-		temp_min = json['main']['temp_min']
-		sendMessage = "今日の愛媛の天気は「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
-		robot.send {room: "#" + room}, sendMessage
+
+    request = robot.http("http://api.openweathermap.org/data/2.5/weather?id=#{config.state}&appid=#{config.api}&units=metric").get()
+    stMessage = request (err, res, body) ->
+      json = JSON.parse body
+      weatherName = json['weather'][0]['main']
+      icon = json['weather'][0]['icon']
+      temp = json['main']['temp']
+      temp_max = json['main']['temp_max']
+      temp_min = json['main']['temp_min']
+      sendMessage = "今日の愛媛の天気は「" + weatherName + "」です。\n気温:"+ temp + "℃ 最高気温："  + temp_max+ "℃ 最低気温：" + temp_min + "℃\nhttp://openweathermap.org/img/w/" + icon + ".png"
+      robot.send {room: "#" + room}, sendMessage
 
   # デバッグ用 myweatherすれば動く
   robot.respond /myweather$/, messageFunc
 
   # 送信
-  new CronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'
+  new cronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

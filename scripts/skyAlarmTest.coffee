@@ -29,23 +29,11 @@ module.exports = (robot) ->
   # 投稿対象部屋
   #room = "general"
   room = "channelcreationnews"
-  
-  # ランダムに投稿するメッセージリスト
-  messages = [
-    '17時55分です。日報書いて帰りましょう。',
-    '17時55分～。日報書こうね。(*´﹃｀*)',
-    '17時55分。日報書こうね！',
-    'いつもの時間になりました。日報書きましょう(*´･ω･)',
-    'まだ日報書いてないの？書いて帰ってね( p_-)',
-    '日報書く時間ですよー！！ヽ(*ﾟдﾟ)ノ',
-    'どう？捗ってる？日報書く時間ですよー',
-    'こんばんは。いつもの時間です。日報書きましょう。'
-  ]
-  
+
   messageFunc = () ->
 
     # メッセージをランダムで選択する
-    message = msg[Math.floor(Math.random() * msg.length)]
+    message = config.msg[Math.floor(Math.random() * config.msg.length)]
     message = "@channel #{ message }"
 
     robot.send {room: "#" + room}, message

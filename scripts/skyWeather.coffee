@@ -21,9 +21,9 @@
 CronJob = require('cron').CronJob
 
 config =
-	api: process.env.HUBOT_WEATHER_API
-	state: process.env.HUBOT_WEATHER_ID
-	
+  api: process.env.HUBOT_WEATHER_API
+  state: process.env.HUBOT_WEATHER_ID
+
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 0 7 * * 1-7"

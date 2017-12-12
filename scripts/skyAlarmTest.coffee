@@ -5,7 +5,7 @@
 #  "モジュール名": "モジュールのバージョン" // 依存関係を書いておく
 #
 # Configuration:
-#  環境設定を書く
+#  HUBOT_ALARM_MESSAGES:アラームメッセージリスト
 #
 # Commands:
 #  自動
@@ -18,6 +18,9 @@
 #   Remind @channel "テストメッセージです。"
 
 cronJob = require('cron').CronJob
+
+config =
+  msg: JSON.parse(process.env.HUBOT_ALARM_MESSAGES ? '[]')
 
 module.exports = (robot) ->
   # 投稿時間
@@ -42,7 +45,7 @@ module.exports = (robot) ->
   messageFunc = () ->
 
     # メッセージをランダムで選択する
-    message = messages[Math.floor(Math.random() * messages.length)]
+    message = msg[Math.floor(Math.random() * msg.length)]
     message = "@channel #{ message }"
 
     robot.send {room: "#" + room}, message

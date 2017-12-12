@@ -29,8 +29,8 @@ module.exports = (robot) ->
   sendTime = "0 0 7 * * 1-7"
   
   # 投稿対象部屋
-  #room = "general"
-  room = "channelcreationnews"
+  room = "random"
+  #room = "channelcreationnews"
   
   messageFunc = () ->
 

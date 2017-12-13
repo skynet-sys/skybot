@@ -27,7 +27,8 @@ module.exports = (robot) ->
   sendTime = "0 55 17 * * 1-5"
   
   # 投稿対象部屋
-  room = "channelcreationnews"
+  room = "general"
+  #room = "channelcreationnews"
 
   messageFunc = () ->
 
@@ -37,5 +38,5 @@ module.exports = (robot) ->
 
     robot.send {room: "#" + room}, message
 
-  # デバッグ用 myremindすれば動く
-  robot.respond /myremind$/, messageFunc
+  # 送信
+  new cronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'

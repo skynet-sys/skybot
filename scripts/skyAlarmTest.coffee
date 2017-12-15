@@ -21,13 +21,14 @@ cronJob = require('cron').CronJob
 
 config =
   msg: JSON.parse(process.env.HUBOT_ALARM_MESSAGES ? '[]')
+  room: process.env.HUBOT_TEST_ROOM
 
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 55 17 * * 1-5"
   
   # 投稿対象部屋
-  room = "channelcreationnews"
+  #room = "channelcreationnews"
 
   messageFunc = () ->
 
@@ -35,7 +36,7 @@ module.exports = (robot) ->
     message = config.msg[Math.floor(Math.random() * config.msg.length)]
     message = "@channel #{ message }"
 
-    robot.send {room: "#" + room}, message
+    robot.send {room: "#" + #{ config.room }}, message
 
   # デバッグ用 myremindすれば動く
   robot.respond /myremind$/, messageFunc

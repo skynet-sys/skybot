@@ -32,8 +32,11 @@ tohhmmTime = (date) ->
 module.exports = (robot) ->
   # keyを設定
   key = "timeTracker"
+  taskey = "taskTracker"
 
-  # hubot now <test> に反応させる
+  # now <test> に反応させる
+  # 基本的に作業を切り替えるたびにnowするべき
+  # あとで集計できる
   robot.hear /^now (.*)/i, (msg) ->
     # 発言から内容を取得。date,text,userの3つ
     date = new Date
@@ -44,12 +47,46 @@ module.exports = (robot) ->
     task = { user: user, date: toYmdDate(date), time: tohhmmTime(date), task: text }
     tasks.push task
     robot.brain.set key, tasks
-    msg.reply "task saved! #{tohhmmTime(date)} #{text}"
+    msg.reply "作業を登録しました #{tohhmmTime(date)} #{text}"
 
-  robot.respond /today$/, (msg) ->
+  # task <test> に反応させる
+  # 明日のタスクはこっちで入れる
+  robot.hear /^task (.*)/i, (msg) ->
+    # 発言から内容を取得。date,text,userの3つ
+    date = new Date
+    text = msg.match[1]
+    user = msg.message.user.name
+
+    tasks = robot.brain.get(taskey) ? []
+    task = { user: user, date: toYmdDate(date), time: tohhmmTime(date), task: text }
+    tasks.push task
+    robot.brain.set taskey, tasks
+    msg.reply "タスクを登録しました #{tohhmmTime(date)} #{text}"
+
+  # hubot result で工数の集計表示をする
+  robot.respond /result$/, (msg) ->
     date = new Date
     user = msg.message.user.name
     tasks = robot.brain.get(key) ? []
+
+    if tasks.length == 0
+      msg.send "登録したデータがないです。"
+      return
+
+    message = tasks.filter (task) ->
+      task.date == toYmdDate(date)
+    .filter (task) ->
+      task.user == user
+    .map (task) ->
+      "#{task.time} #{task.task}" 
+    .join '\n'
+    msg.reply "#{message}"
+
+  # hubot list で一覧を表示する
+  robot.respond /list$/, (msg) ->
+    date = new Date
+    user = msg.message.user.name
+    tasks = robot.brain.get(taskey) ? []
     message = tasks.filter (task) ->
       task.date == toYmdDate(date)
     .filter (task) ->

@@ -36,7 +36,7 @@ module.exports = (robot) ->
     message = config.msg[Math.floor(Math.random() * config.msg.length)]
     message = "@channel #{ message }"
 
-    robot.send {room: "#" + #{ config.room }}, message
+    robot.send {room: "#" + config.room }, message
 
   # デバッグ用 myremindすれば動く
   robot.respond /myremind$/, messageFunc

@@ -76,7 +76,7 @@ module.exports = (robot) ->
           result += sec + '秒'
         result
 
-      tasks = contents.map((val,i)->
+      tasks = contents.map((val,i) ->
         if i == contents.length-1
           obj = {}
           task = val.text.slice(4)
@@ -92,27 +92,23 @@ module.exports = (robot) ->
           return obj
       )
 
-  # work で工数の集計表示をする
-  robot.hear /#work/, (msg) ->
-    date = new Date
-    user = msg.message.user.name
-    tasks = robot.brain.get(key) ? []
+resultList = []
+      hasSameTask = (list,taskName,result) ->
+        if list.length == 0
+          return false
+        for obj in list
+          taskInList = Object.keys(obj)[0]
+          if taskName == taskInList
+            obj[taskInList] += result[taskName]
+            return true
+        return false
 
-    if tasks.length == 0
-      msg.reply "登録したデータがないです。"
-      return
+      for result in tasks
+        task = Object.keys(result)[0]
 
-    for data1,value of array
-      data2 = array[1]
-    
-    message = tasks.filter (task) ->
-      task.date == toYmdDate(date)
-    .filter (task) ->
-      task.user == user
-    .map (task) ->
-      "#{task.time} #{task.task}"
-    .join '\n'
-    msg.reply "#{message}"
+        if not hasSameTask(resultList, task, result)
+          resultList.push(result)
+
 
   # now <test> に反応させる
   # 基本的に作業を切り替えるたびにnowするべき

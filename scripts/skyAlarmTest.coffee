@@ -6,6 +6,7 @@
 #
 # Configuration:
 #  HUBOT_ALARM_MESSAGES:アラームメッセージリスト
+#  HUBOT_TEST_ROOM:アラーム投稿先
 #
 # Commands:
 #  自動
@@ -26,9 +27,6 @@ config =
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 55 17 * * 1-5"
-  
-  # 投稿対象部屋
-  #room = "channelcreationnews"
 
   messageFunc = () ->
 

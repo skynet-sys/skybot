@@ -7,6 +7,7 @@
 # Configuration:
 #  HUBOT_WEATHER_API : APIキー
 #  HUBOT_WEATHER_ID : 地点ID（1864226は愛媛）
+#  HUBOT_TEST_ROOM:アラーム投稿先
 #
 # Commands:
 #  自動

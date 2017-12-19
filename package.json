@@ -19,9 +19,10 @@
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.4.0",
+    "hubot-slack-rainfall-alert": "^1.0.9",
     "hubot-twitter-search": "^1.0.3"
   },
   "engines": {
-    "node": "9.2.x"
+    "node": "9.3.x"
   }
 }

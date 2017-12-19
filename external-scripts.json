@@ -9,5 +9,6 @@
   "hubot-redis-brain",
   "hubot-rules",
   "hubot-shipit",
-  "hubot-twitter-search"
+  "hubot-twitter-search",
+  "hubot-slack-rainfall-alert"
 ]

@@ -77,5 +77,5 @@ module.exports = (robot) ->
       robot.logger.error(err)
       robot.send {room: "#" + config.room}, '集計中にエラーがおきました'
 
-    # デバッグ用 mytestすれば動く
-    robot.respond /mytest$/, countEmoji
+  # デバッグ用 mytestすれば動く
+  robot.respond /mytest$/, countEmoji

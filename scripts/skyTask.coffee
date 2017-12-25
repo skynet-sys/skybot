@@ -47,10 +47,10 @@ module.exports = (robot) ->
     text = msg.match[1]
     user = msg.message.user.name
 
-    #tasks = robot.brain.get(key) ? []
-    #task = { user: user, date: toYmdDate(date), time: tohhmmTime(date), task: text }
-    #tasks.push task
-    #robot.brain.set key, tasks
+    tasks = robot.brain.get(key) ? []
+    task = { user: user, date: toYmdDate(date), time: tohhmmTime(date), task: text }
+    tasks.push task
+    robot.brain.set key, tasks
     msg.reply "作業を登録しました #{tohhmmTime(date)} #{text}"
 
   # task <test> に反応させる

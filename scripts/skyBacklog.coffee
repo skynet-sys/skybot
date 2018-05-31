@@ -4,7 +4,7 @@
 # Commands:
 #   None
 
-backlogUrl = 'https://skynet-tes.backlog.jp/'
+backlogUrl = 'https://skynet-sys.backlog.com/'
 
 module.exports = (robot) ->
   robot.router.post "/room/:room", (req, res) ->

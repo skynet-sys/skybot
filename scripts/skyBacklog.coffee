@@ -4,7 +4,7 @@
 # Commands:
 #   None
 
-backlogUrl = 'https://mobileclip.backlog.jp/'
+backlogUrl = 'https://skynet-tes.backlog.jp/'
 
 module.exports = (robot) ->
   robot.router.post "/room/:room", (req, res) ->

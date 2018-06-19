@@ -53,25 +53,11 @@ module.exports = (robot) ->
     robot.brain.set key, tasks
     msg.reply "作業を登録しました #{tohhmmTime(date)} #{text}"
 
-  # task <test> に反応させる
-  # 明日のタスクはこっちで入れる
-  robot.hear /^task (.*)/i, (msg) ->
-    # 発言から内容を取得。date,text,userの3つ
-    date = new Date
-    text = msg.match[1]
-    user = msg.message.user.name
-
-    tasks = robot.brain.get(taskey) ? []
-    task = { user: user, date: toYmdDate(date), time: tohhmmTime(date), task: text }
-    tasks.push task
-    robot.brain.set taskey, tasks
-    msg.reply "タスクを登録しました #{tohhmmTime(date)} #{text}"
-
   # hubot list で一覧を表示する
   robot.respond /list$/, (msg) ->
     date = new Date
     user = msg.message.user.name
-    tasks = robot.brain.get(taskey) ? []
+    tasks = robot.brain.get(key) ? []
     message = tasks.filter (task) ->
       task.date == toYmdDate(date)
     .filter (task) ->

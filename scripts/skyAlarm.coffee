@@ -7,6 +7,7 @@
 # Configuration:
 #  HUBOT_ALARM_MESSAGES:アラームメッセージリスト
 #  HUBOT_ALARM_SUB_MESSAGES:アラームメッセージリスト
+#  HUBOT_ALARM_URL:アラームしたいURL
 #  HUBOT_ALARM_ROOM:アラーム投稿先
 #
 # Commands:
@@ -25,6 +26,7 @@ cronJob = require('cron').CronJob
 config =
   msg: JSON.parse(process.env.HUBOT_ALARM_MESSAGES ? '[]')
   msg2: JSON.parse(process.env.HUBOT_ALARM_SUB_MESSAGES ? '[]')
+  msgUrl: JSON.parse(process.env.HUBOT_ALARM_URL ? '[]')
   room: process.env.HUBOT_ALARM_ROOM
 
 module.exports = (robot) ->
@@ -38,7 +40,8 @@ module.exports = (robot) ->
       # メッセージをランダムで選択する
       message = config.msg[Math.floor(Math.random() * config.msg.length)]
       message2 = config.msg2[Math.floor(Math.random() * config.msg2.length)]
-      message = "@channel #{ message } \n #{ message2 }"
+      messageUrl = config.msgUrl[Math.floor(Math.random() * config.msgUrl.length)]
+      message = "@channel #{ message } \n #{ message2 } \n #{ messageUrl }"
 
       #メッセージを送信する
       robot.send {room: "#" + config.room }, message

@@ -24,6 +24,10 @@ config =
   room: process.env.HUBOT_TEST_ROOM
   match: 'https://www.jleague.jp/club/ehime/day/#day'
 
+TRM = -15
+# TRM の-1個のスペースを設定
+TRM_SPACE = "              "
+
 module.exports = (robot) ->
   robot.respond /test/i, (msg) ->
     matchScore()

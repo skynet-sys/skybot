@@ -22,15 +22,14 @@ cronJob = require('cron').CronJob
 
 config =
   room: process.env.HUBOT_TEST_ROOM
-
-match: 'https://www.jleague.jp/club/ehime/day/#day'
+  match: 'https://www.jleague.jp/club/ehime/day/#day'
 
 module.exports = (robot) ->
   robot.respond /test/i, (msg) ->
     matchScore()
 
   matchScore = () ->
-    cheerio.fetch match, (err, $, res) ->
+    cheerio.fetch config.match, (err, $, res) ->
       # 更新日時
       updated = "#{$('.upDate').text()}"
       #now = new Date()

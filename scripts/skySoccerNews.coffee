@@ -5,7 +5,6 @@
 #  "モジュール名": "モジュールのバージョン" // 依存関係を書いておく
 #
 # Configuration:
-#  HUBOT_SLACK_TOKEN :Slackトークン
 #  HUBOT_TEST_ROOM :テスト投稿用
 #
 # Commands:
@@ -22,14 +21,11 @@ cheerio = require 'cheerio-httpcli'
 cronJob = require('cron').CronJob
 
 config =
-  token: process.env.HUBOT_SLACK_TOKEN
   room: process.env.HUBOT_TEST_ROOM
 
 match: 'https://www.jleague.jp/club/ehime/day/#day'
 
 module.exports = (robot) ->
-  slack = new Slack(config.token)
-
   robot.respond /test/i, (msg) ->
     matchScore()
 

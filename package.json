@@ -23,7 +23,8 @@
     "hubot-slack-rainfall-alert": "^1.0.9",
     "japanese-holidays": "^1.0.6",
     "q": "^1.5.1",
-    "slack-node": "^0.1.8"
+    "slack-node": "^0.1.8",
+    "cheerio-httpcli": "^1.12.6"
   },
   "engines": {
     "node": "9.3.x"

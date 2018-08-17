@@ -21,41 +21,45 @@ cheerio = require 'cheerio-httpcli'
 cronJob = require('cron').CronJob
 
 config =
-  room: process.env.HUBOT_TEST_ROOM
-  match: 'https://www.jleague.jp/club/ehime/day/#day'
-
-TRM = -15
-# TRM の-1個のスペースを設定
-TRM_SPACE = "              "
+  room: process.env.HUBOT_RANDOM_ROOM
+  match: 'https://soccer.yahoo.co.jp/jleague/teams/detail/30148'
 
 module.exports = (robot) ->
-  robot.respond /test/i, (msg) ->
+  robot.respond /愛媛FC結果/i, (msg) ->
     matchScore()
 
   matchScore = () ->
     cheerio.fetch config.match, (err, $, res) ->
-      # 更新日時
-      updated = "#{$('.upDate').text()}"
-      #now = new Date()
-      #today = now.getFullYear()+"年"+( "0"+( now.getMonth()+1 ) ).slice(-2)+"月"+( "0"+now.getDate() ).slice(-2)+"日"+( "0"+now.getHours() ).slice(-2)+"時"+( "0"+(now.getMinutes()-1) ).slice(-2)
-      #now.setHours(now.getHours()-USA)
+      tdList = []
+      res = []
+      r = 0
+      reg = "試合終了ハイライト動画"
+      tds = $('.modSoccerScheduleAll table tbody td').each ->
+        td = $ @
+        t = td.text()
+        t = t.replace(/\r?\n?\s?/g,"")
+        t = t.replace(reg,"")
+        tdList.push { t }
 
-      #今後3試合の予定
-      #data = '*' + $('.dataTable table caption').text() + '*\n'
+      for i in [0..3]
+        h = r + 2
+        s = r + 3
+        a = r + 4
+        st = r + 5
 
-      # テーブルヘッダを取得
-      header = ""
-      $('.todayResult table tr th').each ->
-      header = header + (TRM_SPACE + $(this).text()).substr(TRM)
-      header = header.replace("合計", "")
-      header = header.slice(0, -40)
-      data = data + header.slice(4)
-      # テーブルのセル取得
-      $('.todayResult table tr').each ->
-      data = data + (TRM_SPACE).substr(TRM)
-      value = ""
-      $('td', $(this)).each ->
-      value = value + (TRM_SPACE + $(this).text()).substr(TRM)
-      data = data + value.slice(4)
-      data = data + '\n'
-      robot.send {room: "#" + config.room}, "#{data}"
+        datetime = tdList[r].t
+        home = tdList[h].t
+        score = tdList[s].t
+        away = tdList[a].t
+        stadium = tdList[st].t
+        res.push { datetime, home, score, away, stadium }
+        r = r + 7
+
+      console.log(res)
+      mes = res
+        .map (c) ->
+          "#{c.datetime} #{c.home} #{c.score} #{c.away} #{c.stadium}"
+        .join '\n'
+
+      #Slackに投稿
+      robot.send {room: "#" + config.room}, "#{mes}"

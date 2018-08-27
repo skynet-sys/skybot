@@ -53,7 +53,7 @@ module.exports = (robot) ->
         away = tdList[a].t
         stadium = tdList[st].t
         res.push { datetime, home, score, away, stadium }
-        r = r + 7
+        r = r + 6
 
       console.log(res)
       mes = res

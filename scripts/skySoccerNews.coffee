@@ -35,8 +35,10 @@ module.exports = (robot) ->
       r = 0
       reg = "試合終了ハイライト動画"
       tds = $('.modSoccerScheduleAll table tbody td').each ->
+        console.log(r + "回目")
         td = $ @
         t = td.text()
+        console.log(t)
         t = t.replace(/\r?\n?\s?/g,"")
         t = t.replace(reg,"")
         tdList.push { t }

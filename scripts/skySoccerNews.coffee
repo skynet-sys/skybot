@@ -33,7 +33,11 @@ module.exports = (robot) ->
       tdList = []
       res = []
       r = 0
+      trCt = 0
       reg = "試合終了ハイライト動画"
+      trs = $('.modSoccerScheduleAll table tbody tr').each ->
+        trCt++
+
       tds = $('.modSoccerScheduleAll table tbody td').each ->
         td = $ @
         t = td.text()
@@ -41,19 +45,20 @@ module.exports = (robot) ->
         t = t.replace(reg,"")
         tdList.push { t }
 
-      for i in [0..3]
-        console.log("num:" + r)
+      for i in [0..trCt-1]
         h = r + 2
         s = r + 3
         a = r + 4
         st = r + 5
+        console.log("rの値:"+r)
         datetime = tdList[r].t
         home = tdList[h].t
         score = tdList[s].t
         away = tdList[a].t
         stadium = tdList[st].t
         res.push { datetime, home, score, away, stadium }
-        r = r + 6
+        r = r + 7
+
 
       console.log(res)
       mes = res

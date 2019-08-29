@@ -42,6 +42,7 @@ module.exports = (robot) ->
         message += "author: #{json.commits[0].author.name}<#{json.commits[0].author.email}>\n"
         message += "message: #{json.commits[0].message}\n"
         message += "url: #{json.commits[0].url}\n"
+        console.log(action)
 
         if action is "created"
           # Comment

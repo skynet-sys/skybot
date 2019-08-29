@@ -65,13 +65,13 @@ module.exports = (robot) ->
             message += "#{pr.body}\n"
             message += "#{pr.html_url}"
 
-          # Push
-          if commits
-            console.log("commits")
-            message = "==== こみっと！！ ====\n"
-            message += "author: #{commits[0].author.name}<#{commits[0].author.email}>\n"
-            message += "message: #{commits[0].message}\n"
-            message += "url: #{commits[0].url}"
+        # Push
+        if message?
+          console.log("commits")
+          message = "==== こみっと！！ ====\n"
+          message += "author: #{json.commits[0].author.name}<#{json.commits[0].author.email}>\n"
+          message += "message: #{json.commits[0].message}\n"
+          message += "url: #{json.commits[0].url}\n"
 
         if message?
             robot.messageRoom room, message

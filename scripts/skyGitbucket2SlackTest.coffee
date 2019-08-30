@@ -42,7 +42,8 @@ module.exports = (robot) ->
         message += "author: #{json.commits[0].author.name}<#{json.commits[0].author.email}>\n"
         message += "message: #{json.commits[0].message}\n"
         message += "url: #{json.commits[0].url}\n"
-        console.log(action)
+        console.log("アクション:" + action)
+        console.log(JSON.stringify(json));
 
         if action is "created"
           # Comment
@@ -54,9 +55,9 @@ module.exports = (robot) ->
             message += "#{comment.html_url}"
 
         if action in ["opened", "closed", "reopened"]
-          console.log("issue")
           # Issue
           if issue
+            console.log("issue")
             message = "==== #{issue.user.login} のいしゅー！！ ====\n"
             message += "##{issue.number}: #{issue.title}\n"
             message += if action is "opened" then "#{issue.body}\n" else "#{action}\n"

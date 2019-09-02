@@ -22,10 +22,10 @@ module.exports = (robot) ->
   robot.router.post "/gitbucket-to-slack-test/:room", (req, res) ->
     { room } = req.params
     { body } = req
-  console.log("start")
     try
       console.log("try")
       if body.payload
+        console.log("payload")
         json = JSON.parse body.payload
         repoUrl = json.repository.html_url
         repoName = json.repository.full_name
@@ -80,4 +80,3 @@ module.exports = (robot) ->
     catch error
       robot.send
       res.end "Error"
-  console.log("end")

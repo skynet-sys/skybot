@@ -39,9 +39,9 @@ module.exports = (robot) ->
         url = ""
         body = ""
         message = "==== こみっと！！ ====\n"
-        message += "author: #{json.commits[0].author.name}<#{json.commits[0].author.email}>\n"
+        message += "author: #{json.commits[0].author.name}\n"
         message += "message: #{json.commits[0].message}\n"
-        message += "url: #{json.commits[0].url}\n"
+        message += "url: #{json.commits[0].html_url}\n"
         console.log("アクション:" + action)
         console.log(JSON.stringify(json));
 

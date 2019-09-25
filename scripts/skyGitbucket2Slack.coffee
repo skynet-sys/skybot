@@ -29,10 +29,9 @@ module.exports = (robot) ->
         json = JSON.parse body.payload
         message = "==== commit info ====\n"
         message += "timestamp: #{json.commits[0].timestamp}\n"
-        message += "id: #{json.commits[0].id}\n"
-        message += "author: #{json.commits[0].author.name}<#{json.commits[0].author.email}>\n"
+        message += "author: #{json.commits[0].author.name}\n"
         message += "message: #{json.commits[0].message}\n"
-        message += "url: #{json.commits[0].url}\n"
+        message += "url: #{json.commits[0].html_url}\n"
 
         if message?
             robot.messageRoom room, message

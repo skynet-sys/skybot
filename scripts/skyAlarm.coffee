@@ -7,6 +7,7 @@
 # Configuration:
 #  HUBOT_ALARM_MESSAGES:アラームメッセージリスト
 #  HUBOT_ALARM_SUB_MESSAGES:アラームメッセージリスト
+#  HUBOT_ALARM_LUNCH_MESSAGES:昼アラームメッセージリスト
 #  HUBOT_ALARM_URL:アラームしたいURL
 #  HUBOT_ALARM_ROOM:アラーム投稿先
 #
@@ -26,12 +27,14 @@ cronJob = require('cron').CronJob
 config =
   msg: JSON.parse(process.env.HUBOT_ALARM_MESSAGES ? '[]')
   msg2: JSON.parse(process.env.HUBOT_ALARM_SUB_MESSAGES ? '[]')
+  lunchMsg: JSON.parse(process.env.HUBOT_ALARM_LUNCH_MESSAGES ? '[]')
   msgUrl: JSON.parse(process.env.HUBOT_ALARM_URL ? '[]')
   room: process.env.HUBOT_ALARM_ROOM
 
 module.exports = (robot) ->
   # 投稿時間
   sendTime = "0 55 17 * * 1-5"
+  sendLunchTime = "0 00 12 * * 1-5"
 
   messageFunc = () ->
 
@@ -46,8 +49,22 @@ module.exports = (robot) ->
       #メッセージを送信する
       robot.send {room: "#" + config.room }, message
 
+  LunchMsgFunc = () ->
+    today = new Date();
+    if checkIsNotHoliday(today)
+      # メッセージをランダムで選択する
+      message = config.lunchMsg[Math.floor(Math.random() * config.lunchMsg.length)]
+      message = "#{ message }"
+
+      #メッセージを送信する
+      robot.send {room: "#" + config.room }, message
+
   # 送信
+  new cronJob sendLunchTime, LunchMsgFunc, null, true, 'Asia/Tokyo'
   new cronJob sendTime, messageFunc, null, true, 'Asia/Tokyo'
+
+  # デバッグ用 testremind
+  robot.respond /testremind$/, LunchMsgFunc
 
 #休日でない場合にtrueを返す
 checkIsNotHoliday = (date) ->

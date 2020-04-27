@@ -3,7 +3,7 @@
 
 module.exports = (robot) ->
 
-  robot.hear /(https?:\/\/[^ ]+)/i, (msg) ->
+  robot.hear /(https?:\/\/(?!172.30.10.145)[^ ]+)/i, (msg) ->
 
     who = msg.message.user.name
     url = msg.match[1]

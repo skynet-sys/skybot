@@ -28,7 +28,7 @@ config =
 module.exports = (robot) ->
   robot.respond /愛媛FC結果/i, (msg) ->
     matchScore()
-    robot.respond /愛媛FC順位/i, (msg) ->
+  robot.respond /愛媛FC順位/i, (msg) ->
     ranking()
 
   matchScore = () ->

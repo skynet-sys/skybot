@@ -74,20 +74,23 @@ module.exports = (robot) ->
 
   ranking = () ->
     cheerio.fetch config.match, (err, $, res) ->
-      res = []
-      trs = $('#modSoccerStanding table thead').each ->
+      head = []
+      body = []
+      trs = $('#modSoccerStanding table thead th').each ->
         trData = $ @
         trText = trData.text()
-        trText = trText.replace(/\r?\n?\s?/g,"")
         console.log("trText:"+trText)
-        res.push { trText }
+        head.push { trText }
 
-      tds = $('#modSoccerStanding table tbody').each ->
+      tds = $('#modSoccerStanding table tbody td').each ->
         tdData = $ @
         tdText = tdData.text()
-        tdText = tdText.replace(/\r?\n?\s?/g,"")
         console.log("tdText:"+tdText)
-        res.push { tdText }
+        body.push { tdText }
+
+      console.log("head:" + head[0] + " body:" + body[1])
+      head.join(" ")
+      body.join(" ")
 
       #Slackに投稿
-      robot.send {room: "#" + config.test}, "#{res[0]}\n#{res[1]}"
+      robot.send {room: "#" + config.test}, "#{head}\n#{body}"

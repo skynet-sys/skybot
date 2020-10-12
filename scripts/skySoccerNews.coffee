@@ -22,11 +22,14 @@ cronJob = require('cron').CronJob
 
 config =
   room: process.env.HUBOT_RANDOM_ROOM
+  test: process.env.HUBOT_TEST_ROOM
   match: 'https://soccer.yahoo.co.jp/jleague/teams/detail/30148'
 
 module.exports = (robot) ->
   robot.respond /愛媛FC結果/i, (msg) ->
     matchScore()
+    robot.respond /愛媛FC順位/i, (msg) ->
+    ranking()
 
   matchScore = () ->
     cheerio.fetch config.match, (err, $, res) ->
@@ -68,3 +71,21 @@ module.exports = (robot) ->
 
       #Slackに投稿
       robot.send {room: "#" + config.room}, "#{mes}"
+
+  ranking = () ->
+    cheerio.fetch config.match, (err, $, res) ->
+      res = []
+      trs = $('#modSoccerStanding table tbody tr').each ->
+        trData = $ @
+        trText = trData.text()
+        res.push { trText }
+      
+      res.push { "\n" }
+
+      tds = $('#modSoccerStanding table tbody td').each ->
+        tdData = $ @
+        tdText = tdData.text()
+        res.push { tdText }
+
+      #Slackに投稿
+      robot.send {room: "#" + config.test}, "#{res}"

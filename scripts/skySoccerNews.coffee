@@ -78,6 +78,7 @@ module.exports = (robot) ->
       trs = $('#modSoccerStanding table tbody tr').each ->
         trData = $ @
         trText = trData.text()
+        console.log("trText:"+trText)
         res.push { trText }
       
       res.push { "\n" }
@@ -85,6 +86,7 @@ module.exports = (robot) ->
       tds = $('#modSoccerStanding table tbody td').each ->
         tdData = $ @
         tdText = tdData.text()
+        console.log("tdText:"+tdText)
         res.push { tdText }
 
       #Slackに投稿

@@ -80,8 +80,6 @@ module.exports = (robot) ->
         trText = trData.text()
         console.log("trText:"+trText)
         res.push { trText }
-      
-      res.push { "\n" }
 
       tds = $('#modSoccerStanding table tbody').each ->
         tdData = $ @
@@ -90,4 +88,4 @@ module.exports = (robot) ->
         res.push { tdText }
 
       #Slackに投稿
-      robot.send {room: "#" + config.test}, "#{res}"
+      robot.send {room: "#" + config.test}, "#{res.trText}\n#{res.tdText}"

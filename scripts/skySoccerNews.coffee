@@ -78,14 +78,16 @@ module.exports = (robot) ->
       trs = $('#modSoccerStanding table thead').each ->
         trData = $ @
         trText = trData.text()
+        trText = trText.replace(/\r?\n?\s?/g,"")
         console.log("trText:"+trText)
         res.push { trText }
 
       tds = $('#modSoccerStanding table tbody').each ->
         tdData = $ @
         tdText = tdData.text()
+        tdText = tdText.replace(/\r?\n?\s?/g,"")
         console.log("tdText:"+tdText)
         res.push { tdText }
 
       #Slackに投稿
-      robot.send {room: "#" + config.test}, "#{res.trText}\n#{res.tdText}"
+      robot.send {room: "#" + config.test}, "#{res[0]}\n#{res[1]}"

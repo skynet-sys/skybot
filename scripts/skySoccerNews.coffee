@@ -75,7 +75,7 @@ module.exports = (robot) ->
   ranking = () ->
     cheerio.fetch config.match, (err, $, res) ->
       res = []
-      trs = $('#modSoccerStanding table tbody tr').each ->
+      trs = $('#modSoccerStanding table thead').each ->
         trData = $ @
         trText = trData.text()
         console.log("trText:"+trText)
@@ -83,7 +83,7 @@ module.exports = (robot) ->
       
       res.push { "\n" }
 
-      tds = $('#modSoccerStanding table tbody td').each ->
+      tds = $('#modSoccerStanding table tbody').each ->
         tdData = $ @
         tdText = tdData.text()
         console.log("tdText:"+tdText)

@@ -88,9 +88,9 @@ module.exports = (robot) ->
         console.log("tdText:"+tdText)
         body.push { tdText }
 
-      console.log("head:" + head[0] + " body:" + body[1])
       head.join(" ")
       body.join(" ")
+      console.log("head:" + head.trText + " body:" + body.tdText)
 
       #Slackに投稿
-      robot.send {room: "#" + config.test}, "#{head}\n#{body}"
+      robot.send {room: "#" + config.test}, "#{head.trText}\n#{body.tdText}"

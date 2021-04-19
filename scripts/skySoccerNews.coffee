@@ -38,10 +38,10 @@ module.exports = (robot) ->
       r = 0
       trCt = 0
       reg = "試合終了ハイライト動画"
-      trs = $('.modSoccerScheduleAll table tbody tr').each ->
+      trs = $('#schedule table.sc-tableGame tbody tr').each ->
         trCt++
 
-      tds = $('.modSoccerScheduleAll table tbody td').each ->
+      tds = $('#schedule table.sc-tableGame tbody td').each ->
         td = $ @
         t = td.text()
         t = t.replace(/\r?\n?\s?/g,"")

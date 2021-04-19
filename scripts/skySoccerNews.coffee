@@ -37,7 +37,9 @@ module.exports = (robot) ->
       res = []
       r = 0
       trCt = 0
-      reg = "試合終了ハイライト動画"
+      reg = "試合終了"
+	  reg1 = "ハイライト動画"
+	  reg2 = "ダイジェスト"
       trs = $('#schedule table.sc-tableGame tbody tr').each ->
         trCt++
 
@@ -46,6 +48,8 @@ module.exports = (robot) ->
         t = td.text()
         t = t.replace(/\r?\n?\s?/g,"")
         t = t.replace(reg,"")
+        t = t.replace(reg1,"")
+        t = t.replace(reg2,"")
         tdList.push { t }
 
       for i in [0..trCt-1]

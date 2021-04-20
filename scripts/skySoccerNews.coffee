@@ -38,8 +38,8 @@ module.exports = (robot) ->
       r = 0
       trCt = 0
       reg = "試合終了"
-	  reg1 = "ハイライト動画"
-	  reg2 = "ダイジェスト"
+      reg1 = "ハイライト動画"
+      reg2 = "ダイジェスト"
       trs = $('#schedule table.sc-tableGame tbody tr').each ->
         trCt++
 

@@ -27,6 +27,7 @@ module.exports = (robot) ->
     isHoliday(msg)
 
   isHoliday = (msg) ->
+    today = new Date();
     if checkIsNotHoliday(today)
       #メッセージを送信する
       msg.reply "今日は休みじゃないよ！"
